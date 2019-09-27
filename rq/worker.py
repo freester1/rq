@@ -629,7 +629,7 @@ class Worker(object):
                 # Check if the job is completed
                 job_status = job.get_status()
                 if job_status is None or job_status in [JobStatus.FINISHED, JobStatus.FAILED]:
-                    os.kill(self._horse_pid, signal.SIGTERM)
+                    self.kill_horse(sig=signal.SIGRTMIN)
             except OSError as e:
                 # In case we encountered an OSError due to EINTR (which is
                 # caused by a SIGINT or SIGTERM signal during
